@@ -43,7 +43,7 @@ export default function Home() {
 
           <section className="flex-1 min-h-0 w-full max-w-5xl mx-auto px-5 py-2 pb-3 grid grid-cols-2 gap-2">
             {serviceGroups.map((group) => (
-              <ServiceGroup key={group.group} group={group} onSubPage={setPage} />
+              <ServiceGroup key={group.group} group={group} onSubPage={(id) => setPage(id as "home" | "layanan-data")} />
             ))}
           </section>
         </div>
