@@ -90,7 +90,7 @@ export const serviceGroups: ServiceGroup[] = [
         name: "Pengaduan BP3KP Jawa III",
         description: "Sampaikan pengaduan langsung kepada BP3KP Jawa III",
         icon: "message-square",
-        link: "https://wa.me/6281288888911",
+        link: "https://wa.me/6282137191145",
       },
     ],
   },
