@@ -126,7 +126,7 @@ export const serviceGroups: ServiceGroup[] = [
         name: "Layanan Kepegawaian",
         description: "Sistem informasi kepegawaian internal BP3KP Jawa III",
         icon: "user-cog",
-        link: "#",
+        link: "https://kepegawaian-bp3kpj3.vercel.app/",
         internal: true,
       },
       {
