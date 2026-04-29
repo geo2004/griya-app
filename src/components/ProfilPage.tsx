@@ -109,10 +109,15 @@ function OfficeMap() {
 /* ── Main Profil Page ── */
 export default function ProfilPage({ onBack }: Props) {
   return (
-    <div className="h-screen flex flex-col overflow-hidden select-none" style={{ background: "#ffffff" }}>
+    <div className="h-screen flex flex-col overflow-hidden select-none relative" style={{ background: "#ffffff" }}>
+
+      {/* Full-screen Joglo background */}
+      <img src="/design/image3.png" alt="" aria-hidden
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ opacity: 0.08, zIndex: 0 }} />
 
       {/* ── MAIN SPLIT ── */}
-      <div className="flex-1 flex min-h-0">
+      <div className="flex-1 flex min-h-0 relative z-10">
 
         {/* ── LEFT PANEL ── */}
         <div className="w-[43%] flex flex-col px-10 pt-8 pb-6 gap-5 overflow-y-auto">
@@ -186,7 +191,7 @@ export default function ProfilPage({ onBack }: Props) {
       </div>
 
       {/* ── BOTTOM BAR ── */}
-      <div className="flex-shrink-0 h-4 w-full" style={{ background: "var(--pkp-teal)" }} />
+      <div className="flex-shrink-0 h-4 w-full relative z-10" style={{ background: "var(--pkp-teal)" }} />
     </div>
   )
 }

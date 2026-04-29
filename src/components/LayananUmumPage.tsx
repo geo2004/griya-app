@@ -110,10 +110,15 @@ export default function LayananUmumPage({ onBack }: Props) {
   if (subPage === "data-informasi") return <DataInformasiPage onBack={() => setSubPage(null)} />
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden select-none" style={{ background: "#ffffff" }}>
+    <div className="h-screen flex flex-col overflow-hidden select-none relative" style={{ background: "#ffffff" }}>
+
+      {/* Full-screen Joglo background */}
+      <img src="/design/image3.png" alt="" aria-hidden
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ opacity: 0.08, zIndex: 0 }} />
 
       {/* ── HEADER ── */}
-      <header className="flex-shrink-0 flex items-start justify-between px-8 pt-5 pb-0 z-10">
+      <header className="flex-shrink-0 flex items-start justify-between px-8 pt-5 pb-0 relative z-10">
         <div className="flex flex-col">
           <p className="text-xs font-medium leading-relaxed" style={{ color: "var(--pkp-teal)", opacity: 0.8 }}>
             Gotong Royong Membangun Rumah Untuk Rakyat
@@ -128,7 +133,7 @@ export default function LayananUmumPage({ onBack }: Props) {
       </header>
 
       {/* ── MAIN 3-COLUMN BODY ── */}
-      <div className="flex-1 flex min-h-0">
+      <div className="flex-1 flex min-h-0 relative z-10">
 
         {/* ── LEFT: LAYANAN ONLINE ── */}
         <div className="w-[27%] flex flex-col items-center justify-center px-6 py-4 gap-6">
@@ -234,7 +239,7 @@ export default function LayananUmumPage({ onBack }: Props) {
       </div>
 
       {/* ── BOTTOM BAR ── */}
-      <div className="flex-shrink-0 h-4 w-full" style={{ background: "var(--pkp-teal)" }} />
+      <div className="flex-shrink-0 h-4 w-full relative z-10" style={{ background: "var(--pkp-teal)" }} />
     </div>
   )
 }
