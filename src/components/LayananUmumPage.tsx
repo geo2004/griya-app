@@ -44,9 +44,9 @@ const offlineServices = [
 ]
 
 const dataApps = [
-  { name: "SIBARU",      desc: "Sistem Informasi Bantuan Rumah",             link: "https://sibaru.pkp.go.id",   logo: "/design/logo_pkp.png" },
-  { name: "SIRENG",      desc: "Sistem Informasi Rusunawa",                  link: "https://sireng.pkp.go.id",   logo: "/design/logo_pkp.png" },
-  { name: "SIKUMBANG",   desc: "Sistem Informasi Kumuh dan Bangunan",        link: "https://sikumbang.tapera.go.id/", logo: "/design/logo_pkp.png" },
+  { name: "SIBARU",      desc: "Sistem Informasi Pengusulan Bantuan Perumahan",                   link: "https://sibaru.pkp.go.id",        logo: "/design/logo_pkp.png" },
+  { name: "SIRENG",      desc: "Sistem Informasi dan Registrasi Pengembang Perumahan",             link: "https://sireng.pkp.go.id",        logo: "/design/logo_pkp.png" },
+  { name: "SIKUMBANG",   desc: "Sistem Informasi Ketersediaan Rumah Umum dan Pengembang",          link: "https://sikumbang.tapera.go.id/", logo: "/design/logo_pkp.png" },
   { name: "E-PPID PKP",  desc: "Layanan Informasi Publik Kementerian PKP",   link: "https://e-ppid.pkp.go.id/",      logo: "/design/logo_pkp.png" },
 ]
 
