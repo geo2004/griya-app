@@ -79,7 +79,7 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
             DATA &amp; INFORMASI
           </p>
           <p className="text-xs text-white/60 mt-0.5">
-            Akses data dan informasi seputar PKP Jawa III
+            Akses Layanan Data dan Informasi Perumahan
           </p>
         </div>
 
