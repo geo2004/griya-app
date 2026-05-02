@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import { ArrowLeft, ChevronUp, ChevronDown } from "lucide-react"
 
 interface Props { onBack: () => void }
@@ -110,11 +110,33 @@ function OfficeMap() {
 /* ── Main Profil Page ── */
 export default function ProfilPage({ onBack }: Props) {
   const [current, setCurrent] = useState(0)
+  const currentRef      = useRef(0)
+  const lastScrollTime  = useRef(0)
+  const containerRef    = useRef<HTMLDivElement>(null)
 
-  const goTo = (idx: number) => setCurrent(Math.max(0, Math.min(slides.length - 1, idx)))
+  const goTo = useCallback((idx: number) => {
+    const next = Math.max(0, Math.min(slides.length - 1, idx))
+    currentRef.current = next
+    setCurrent(next)
+  }, [])
+
+  /* Debounced wheel navigation — one scroll event = one slide, 800ms cooldown */
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const now = Date.now()
+      if (now - lastScrollTime.current < 800) return
+      lastScrollTime.current = now
+      if (e.deltaY > 0) goTo(currentRef.current + 1)
+      else              goTo(currentRef.current - 1)
+    }
+    const el = containerRef.current
+    el?.addEventListener("wheel", handleWheel, { passive: false })
+    return () => el?.removeEventListener("wheel", handleWheel)
+  }, [goTo])
 
   return (
-    <div className="h-screen overflow-hidden relative select-none" style={{ background: "#ffffff" }}>
+    <div ref={containerRef} className="h-screen overflow-hidden relative select-none" style={{ background: "#ffffff" }}>
 
       {/* ── SLIDING CONTAINER ── */}
       <div
@@ -186,7 +208,7 @@ export default function ProfilPage({ onBack }: Props) {
         {/* ── SLIDE 1: Denah Kantor Yogyakarta ── */}
         <div className="h-screen flex-shrink-0 relative bg-white">
           <img
-            src="/design/Slide2.gif"
+            src="/design/Slide2.GIF"
             alt="Denah Kantor Yogyakarta"
             className="absolute inset-0 w-full h-full object-contain"
           />
@@ -196,7 +218,7 @@ export default function ProfilPage({ onBack }: Props) {
         {/* ── SLIDE 2: Denah Kantor Semarang ── */}
         <div className="h-screen flex-shrink-0 relative bg-white">
           <img
-            src="/design/Slide3.gif"
+            src="/design/Slide3.GIF"
             alt="Denah Kantor Semarang"
             className="absolute inset-0 w-full h-full object-contain"
           />
