@@ -7,11 +7,12 @@ import LayananInternalPage from "@/components/LayananInternalPage"
 
 type Page = "home" | "profil" | "layanan-umum" | "layanan-pengaduan" | "layanan-internal"
 
-const menuItems: { label: string; page: Page; gold?: boolean }[] = [
+const menuItems: { label: string; page?: Page; href?: string; gold?: boolean; outline?: boolean }[] = [
   { label: "PROFIL BP3KP JAWA III",            page: "profil" },
   { label: "LAYANAN UMUM",                     page: "layanan-umum" },
   { label: "LAYANAN PENGADUAN",                page: "layanan-pengaduan" },
   { label: "LAYANAN INTERNAL BP3KP JAWA III",  page: "layanan-internal", gold: true },
+  { label: "PENDAFTARAN LAYANAN",              href: "https://skm-bp3kpj3.vercel.app/", outline: true },
 ]
 
 const socialLinks = [
@@ -106,21 +107,28 @@ export default function Home() {
 
           {/* Menu buttons */}
           <div className="flex flex-col gap-4">
-            {menuItems.map(({ label, page: p, gold }) => (
-              <button
-                key={p}
-                onClick={() => setPage(p)}
-                className="w-full font-bold tracking-widest text-sm py-4 rounded-full transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] shadow-md"
-                style={{
-                  background: gold ? "var(--pkp-gold)" : "var(--pkp-teal)",
-                  color: gold ? "var(--pkp-teal)" : "#ffffff",
-                  letterSpacing: "0.12em",
-                  fontFamily: "'Poppins', sans-serif",
-                }}
-              >
-                {label}
-              </button>
-            ))}
+            {menuItems.map(({ label, page: p, href, gold, outline }) => {
+              const cls = "w-full font-bold tracking-widest text-sm py-4 rounded-full transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] shadow-md text-center"
+              const style = {
+                background: outline ? "transparent" : gold ? "var(--pkp-gold)" : "var(--pkp-teal)",
+                color: outline ? "var(--pkp-teal)" : gold ? "var(--pkp-teal)" : "#ffffff",
+                border: outline ? "2px solid var(--pkp-teal)" : "none",
+                letterSpacing: "0.12em",
+                fontFamily: "'Poppins', sans-serif",
+              }
+              if (href) {
+                return (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+                    {label}
+                  </a>
+                )
+              }
+              return (
+                <button key={p} onClick={() => setPage(p!)} className={cls} style={style}>
+                  {label}
+                </button>
+              )
+            })}
           </div>
 
           {/* Social media icons */}
