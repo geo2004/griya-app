@@ -4,32 +4,32 @@ interface Props { onBack: () => void }
 
 const services = [
   {
-    icon: <UserCog size={36} strokeWidth={1.5} />,
+    icon: <UserCog size={28} strokeWidth={1.5} />,
     name: "Layanan Kepegawaian",
     link: "https://kepegawaian-bp3kpj3.vercel.app/",
   },
   {
-    icon: <Package size={36} strokeWidth={1.5} />,
+    icon: <Package size={28} strokeWidth={1.5} />,
     name: "Inventarisasi BMN",
     link: "https://bmn-app.vercel.app/",
   },
   {
-    icon: <Navigation size={36} strokeWidth={1.5} />,
+    icon: <Navigation size={28} strokeWidth={1.5} />,
     name: "Go PKP",
     link: "https://go.pkp.go.id/",
   },
   {
-    icon: <Mail size={36} strokeWidth={1.5} />,
+    icon: <Mail size={28} strokeWidth={1.5} />,
     name: "E-office PKP",
     link: "https://eoffice.pkp.go.id",
   },
   {
-    icon: <CircleUser size={36} strokeWidth={1.5} />,
+    icon: <CircleUser size={28} strokeWidth={1.5} />,
     name: "MyPKP",
     link: "https://my.pkp.go.id",
   },
   {
-    icon: <BarChart2 size={36} strokeWidth={1.5} />,
+    icon: <BarChart2 size={28} strokeWidth={1.5} />,
     name: "Sistem Pelaporan Kinerja",
     link: "https://lapkin-app.vercel.app/",
   },
@@ -49,6 +49,7 @@ export default function LayananInternalPage({ onBack }: Props) {
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ opacity: 0.08, zIndex: 0 }}
       />
+
       {/* Header */}
       <header className="flex-shrink-0 flex items-center justify-between px-6 py-3 relative z-10">
         <div className="flex items-center gap-3">
@@ -66,6 +67,7 @@ export default function LayananInternalPage({ onBack }: Props) {
 
       {/* Body */}
       <div className="flex-1 flex flex-col items-center justify-center px-8 py-10 gap-10 relative z-10">
+
         {/* Section header */}
         <div className="text-center">
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-lg mb-3" style={{ background: "var(--pkp-teal)" }}>
@@ -77,23 +79,24 @@ export default function LayananInternalPage({ onBack }: Props) {
           <p className="text-xs opacity-50">Akses layanan internal khusus untuk pegawai BP3KP Jawa III</p>
         </div>
 
-        {/* Oval buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-8">
+        {/* Service buttons — items-start keeps circles top-aligned; text wraps downward */}
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-6" style={{ alignItems: "flex-start" }}>
           {services.map((svc, i) => (
             <a
               key={i}
               href={svc.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 group"
+              className="flex flex-col items-center gap-2 group"
+              style={{ width: "96px" }}
             >
               <div
-                className="w-36 h-36 rounded-full flex items-center justify-center text-white transition-all group-hover:scale-105 group-hover:shadow-xl shadow-md"
+                className="w-24 h-24 rounded-full flex items-center justify-center text-white transition-all group-hover:scale-105 group-hover:shadow-xl shadow-md flex-shrink-0"
                 style={{ background: "var(--pkp-teal)" }}
               >
                 {svc.icon}
               </div>
-              <p className="text-sm font-bold text-center max-w-28 leading-tight" style={{ color: "var(--pkp-teal)" }}>
+              <p className="text-xs font-bold text-center leading-tight w-full" style={{ color: "var(--pkp-teal)" }}>
                 {svc.name}
               </p>
             </a>
