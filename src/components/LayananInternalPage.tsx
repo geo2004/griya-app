@@ -1,4 +1,4 @@
-import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser } from "lucide-react"
+import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser, BarChart2 } from "lucide-react"
 
 interface Props { onBack: () => void }
 
@@ -27,6 +27,11 @@ const services = [
     icon: <CircleUser size={36} strokeWidth={1.5} />,
     name: "MyPKP",
     link: "https://my.pkp.go.id",
+  },
+  {
+    icon: <BarChart2 size={36} strokeWidth={1.5} />,
+    name: "Sistem Pelaporan Kinerja",
+    link: "https://lapkin-app.vercel.app/",
   },
 ]
 
