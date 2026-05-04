@@ -17,10 +17,10 @@ const menuItems: { label: string; page?: Page; href?: string; gold?: boolean; ou
 ]
 
 const socialLinks = [
-  { icon: "/design/instagram.png",  href: "https://www.instagram.com/bp3kp_jawa3",      label: "Instagram" },
-  { icon: "/design/youtube.svg",    href: "https://www.youtube.com/@KlinikPKPJawa3",     label: "YouTube"   },
-  { icon: "/design/whatsapp.svg",   href: "https://wa.me/6282137191145",                 label: "WhatsApp"  },
-  { icon: "/design/email.svg",      href: "mailto:bp3kp.jawa3@pkp.go.id",               label: "Email"     },
+  { icon: "/design/instagram.png",  href: "https://www.instagram.com/bp3kp_jawa3",  label: "Instagram" },
+  { icon: "/design/youtube.svg",    href: "https://www.youtube.com/@KlinikPKPJawa3", label: "YouTube"   },
+  { icon: "/design/whatsapp.svg",   href: "https://wa.me/6282137191145",             label: "WhatsApp"  },
+  { icon: "/design/email.svg",      href: "mailto:bp3kp.jawa3@pkp.go.id",           label: "Email"     },
 ]
 
 export default function Home() {
@@ -33,22 +33,28 @@ export default function Home() {
 
   return (
     <div
-      className="h-screen flex flex-col overflow-hidden select-none"
+      className="min-h-screen md:h-screen flex flex-col overflow-y-auto md:overflow-hidden select-none"
       style={{ background: "#ffffff" }}
     >
       {/* ── TOP BAR ── */}
-      <header className="flex-shrink-0 flex items-start justify-between px-8 pt-5 pb-0 z-10">
-        <p className="text-xs leading-relaxed font-medium" style={{ color: "var(--pkp-teal)", opacity: 0.8 }}>
+      <header className="flex-shrink-0 flex items-center justify-between px-5 md:px-8 pt-4 md:pt-5 pb-0 z-10">
+        <p className="text-xs leading-relaxed font-medium hidden md:block" style={{ color: "var(--pkp-teal)", opacity: 0.8 }}>
           Gotong Royong Membangun Rumah Untuk Rakyat
         </p>
-        <img src="/design/image6.png" alt="Kemen PKP" className="h-20 w-auto object-contain" />
+        {/* On mobile: show GRIYA wordmark in header row */}
+        <img
+          src="/design/GRIYA_JAWA3.png"
+          alt="Griya Jawa3"
+          className="block md:hidden h-8 w-auto object-contain"
+        />
+        <img src="/design/image6.png" alt="Kemen PKP" className="h-12 md:h-20 w-auto object-contain" />
       </header>
 
       {/* ── MAIN CONTENT ── */}
-      <div className="flex-1 flex min-h-0">
+      <div className="flex-1 flex flex-col md:flex-row min-h-0">
 
-        {/* ── LEFT: wordmark + staff ── */}
-        <div className="relative w-1/2 flex flex-col justify-end overflow-hidden">
+        {/* ── LEFT: wordmark + staff — desktop only ── */}
+        <div className="hidden md:relative md:flex md:w-1/2 flex-col justify-end overflow-hidden">
           <img
             src="/design/image3.png"
             alt="Gedung BP3KP"
@@ -70,13 +76,22 @@ export default function Home() {
         </div>
 
         {/* ── RIGHT: greeting + buttons + social ── */}
-        <div className="w-1/2 flex flex-col justify-center px-12 gap-6">
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-12 gap-4 md:gap-6 py-6 md:py-0 relative">
 
-          <div style={{ marginTop: "-2rem" }}>
+          {/* Mobile: Joglo bg watermark */}
+          <img
+            src="/design/image3.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none md:hidden"
+            style={{ opacity: 0.05, zIndex: 0 }}
+          />
+
+          <div className="relative z-10" style={{ marginTop: "0" }}>
             <p
               style={{
                 fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-                fontSize: "clamp(1.4rem, 2.2vw, 2rem)",
+                fontSize: "clamp(1.1rem, 5vw, 2rem)",
                 color: "#7F7F7F",
                 letterSpacing: "0.05em",
                 lineHeight: 1.1,
@@ -87,10 +102,10 @@ export default function Home() {
             <p
               style={{
                 fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-                fontSize: "clamp(0.75rem, 1.1vw, 1rem)",
+                fontSize: "clamp(0.65rem, 2vw, 1rem)",
                 color: "var(--pkp-teal)",
                 letterSpacing: "0.08em",
-                marginTop: "1.1rem",
+                marginTop: "0.75rem",
               }}
             >
               GERBANG INFORMASI RUJUKAN DAN LAYANAN BP3KP JAWA III
@@ -98,14 +113,14 @@ export default function Home() {
           </div>
 
           {/* Menu buttons */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2.5 md:gap-4 relative z-10">
             {menuItems.map(({ label, page: p, href, gold, outline }) => {
-              const cls = "w-full font-bold tracking-widest text-sm py-4 rounded-full transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] shadow-md text-center"
+              const cls = "w-full font-bold tracking-widest text-xs md:text-sm py-3 md:py-4 rounded-full transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.99] shadow-md text-center"
               const style = {
                 background: outline ? "transparent" : gold ? "var(--pkp-gold)" : "var(--pkp-teal)",
                 color: outline ? "var(--pkp-teal)" : gold ? "var(--pkp-teal)" : "#ffffff",
                 border: outline ? "2px solid var(--pkp-teal)" : "none",
-                letterSpacing: "0.12em",
+                letterSpacing: "0.1em",
                 fontFamily: "'Poppins', sans-serif",
               }
               if (href) {
@@ -124,7 +139,7 @@ export default function Home() {
           </div>
 
           {/* Social media icons */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4 md:gap-5 relative z-10">
             {socialLinks.map(({ icon, href, label }) => (
               <KioskLink
                 key={label}
@@ -135,6 +150,22 @@ export default function Home() {
                 <img src={icon} alt={label} className="h-6 w-6 object-contain" />
               </KioskLink>
             ))}
+          </div>
+
+          {/* Mobile only: small staff photo as decoration at bottom */}
+          <div className="block md:hidden relative mt-2 -mx-6 overflow-hidden" style={{ height: "200px" }}>
+            <img
+              src="/design/image3.png"
+              alt=""
+              aria-hidden
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              style={{ opacity: 0.06 }}
+            />
+            <img
+              src="/design/image5_processed.png"
+              alt="Staff BP3KP Jawa III"
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 h-full object-contain object-bottom pointer-events-none"
+            />
           </div>
         </div>
       </div>

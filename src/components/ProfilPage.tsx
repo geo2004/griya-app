@@ -152,13 +152,15 @@ export default function ProfilPage({ onBack }: Props) {
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{ opacity: 0.08, zIndex: 0 }} />
 
-          <div className="flex-1 flex min-h-0 relative z-10">
-            {/* Left panel */}
-            <div className="w-[43%] flex flex-col px-10 pt-8 pb-20 gap-5 overflow-y-auto">
+          {/* Content: stacks vertically on mobile, side-by-side on desktop */}
+          <div className="flex-1 flex flex-col md:flex-row min-h-0 relative z-10">
+
+            {/* Left / Top panel — text content */}
+            <div className="w-full md:w-[43%] flex flex-col px-5 md:px-10 pt-5 md:pt-8 pb-4 md:pb-20 gap-4 md:gap-5 overflow-y-auto">
               <div>
                 <p style={{
                   fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-                  fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)",
+                  fontSize: "clamp(0.75rem, 2.5vw, 1.1rem)",
                   color: "#7F7F7F",
                   letterSpacing: "0.05em",
                 }}>
@@ -168,19 +170,19 @@ export default function ProfilPage({ onBack }: Props) {
                   src="/design/GRIYA_JAWA3.png"
                   alt="Griya Jawa3"
                   className="mt-1 pointer-events-none"
-                  style={{ width: "clamp(160px, 55%, 260px)" }}
+                  style={{ width: "clamp(120px, 45%, 260px)" }}
                 />
               </div>
               <p className="text-xs font-bold tracking-widest" style={{ color: "var(--pkp-teal)" }}>
                 GERBANG INFORMASI RUJUKAN DAN LAYANAN BP3KP JAWA III
               </p>
-              <div style={{ marginTop: "-0.5rem" }}>
+              <div style={{ marginTop: "-0.25rem" }}>
                 <p className="text-sm font-bold tracking-widest" style={{ color: "var(--pkp-gold)" }}>PROFIL</p>
-                <h2 className="font-black leading-none" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "var(--pkp-teal)" }}>
+                <h2 className="font-black leading-none" style={{ fontSize: "clamp(1.6rem, 6vw, 3.2rem)", color: "var(--pkp-teal)" }}>
                   BP3KP JAWA III
                 </h2>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: "#333" }}>
+              <p className="text-xs md:text-sm leading-relaxed" style={{ color: "#333" }}>
                 Balai Pelaksana Penyediaan Perumahan dan Kawasan Permukiman Jawa III mempunyai tugas
                 melaksanakan pembangunan rumah susun, rumah khusus, rumah swadaya, prasarana, sarana,
                 dan utilitas umum (PSU), serta koordinasi penyediaan lahan dan pengembangan hunian di
@@ -188,15 +190,15 @@ export default function ProfilPage({ onBack }: Props) {
               </p>
               <KioskLink
                 href="https://pkp.go.id/balai/p2p-jawa-iii"
-                className="w-fit px-8 py-3 rounded-full font-bold tracking-widest text-xs text-white transition-opacity hover:opacity-85 shadow-md"
+                className="w-fit px-6 md:px-8 py-2.5 md:py-3 rounded-full font-bold tracking-widest text-xs text-white transition-opacity hover:opacity-85 shadow-md"
                 style={{ background: "var(--pkp-teal)", letterSpacing: "0.15em" }}
               >
                 WEBSITE BP3KP JAWA III
               </KioskLink>
             </div>
 
-            {/* Right panel: map */}
-            <div className="flex-1 relative">
+            {/* Right / Bottom panel — map */}
+            <div className="flex-1 relative" style={{ minHeight: "240px" }}>
               <OfficeMap />
             </div>
           </div>
@@ -227,7 +229,7 @@ export default function ProfilPage({ onBack }: Props) {
       </div>
 
       {/* ── PERSISTENT NAV OVERLAY ── */}
-      <div className="absolute bottom-8 left-10 z-50 flex items-center gap-4">
+      <div className="absolute bottom-8 left-4 md:left-10 z-50 flex items-center gap-2 md:gap-4">
         {/* Kembali */}
         <button
           onClick={onBack}
@@ -242,7 +244,7 @@ export default function ProfilPage({ onBack }: Props) {
 
         {/* Slide label */}
         <span
-          className="text-xs font-semibold tracking-wide"
+          className="text-xs font-semibold tracking-wide hidden sm:inline"
           style={{ color: "var(--pkp-teal)", minWidth: "10rem" }}
         >
           {slides[current].label}
