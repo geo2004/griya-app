@@ -25,19 +25,34 @@ const isNativeUrl = (url: string) =>
   url.startsWith("mailto:") ||
   url.startsWith("tel:")
 
-/** True when browser is in fullscreen — covers F11 and --kiosk Chrome mode */
+/**
+ * True when browser is in fullscreen.
+ * Uses a generous 95% threshold to handle display scaling differences.
+ */
 const checkFullscreen = () =>
-  !!document.fullscreenElement || window.innerHeight >= screen.height - 5
+  !!document.fullscreenElement ||
+  window.outerHeight >= screen.height - 10 ||
+  window.innerHeight >= screen.height * 0.95
 
 export function ExternalProvider({ children }: { children: ReactNode }) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [externalUrl, setExternalUrl] = useState<string | null>(null)
 
   useEffect(() => {
+    // ── Priority 1: explicit URL parameter ──────────────────────────────
+    // Configure the kiosk browser to open: http://<host>?kiosk=1
+    // This is the most reliable method for dedicated kiosk machines.
+    const params = new URLSearchParams(window.location.search)
+    if (params.get("kiosk") === "1") {
+      setIsFullscreen(true)
+      return // no need to track resize/fullscreenchange
+    }
+
+    // ── Priority 2: automatic detection (F11 / --kiosk Chrome flag) ─────
     const update = () => setIsFullscreen(checkFullscreen())
     document.addEventListener("fullscreenchange", update)
     window.addEventListener("resize", update)
-    update() // check on mount
+    update() // check immediately on mount
     return () => {
       document.removeEventListener("fullscreenchange", update)
       window.removeEventListener("resize", update)
