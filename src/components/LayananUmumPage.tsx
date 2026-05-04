@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { ArrowLeft } from "lucide-react"
+import KioskLink from "@/components/KioskLink"
 
 interface Props { onBack: () => void }
 
@@ -47,7 +48,7 @@ const dataApps = [
   { name: "SIBARU",      desc: "Sistem Informasi Pengusulan Bantuan Perumahan",                   link: "https://sibaru.pkp.go.id",        logo: "/design/logo_pkp.png" },
   { name: "SIRENG",      desc: "Sistem Informasi dan Registrasi Pengembang Perumahan",             link: "https://sireng.pkp.go.id",        logo: "/design/logo_pkp.png" },
   { name: "SIKUMBANG",   desc: "Sistem Informasi Ketersediaan Rumah Umum dan Pengembang",          link: "https://sikumbang.tapera.go.id/", logo: "/design/logo_pkp.png" },
-  { name: "E-PPID PKP",  desc: "Layanan Informasi Publik Kementerian PKP",   link: "https://e-ppid.pkp.go.id/",      logo: "/design/logo_pkp.png" },
+  { name: "E-PPID PKP",  desc: "Layanan Informasi Publik Kementerian PKP",                        link: "https://e-ppid.pkp.go.id/",      logo: "/design/logo_pkp.png" },
 ]
 
 /* ─── Data & Informasi Sub-page ─────────────────────────────────────── */
@@ -85,7 +86,7 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
 
         <div className="grid grid-cols-4 gap-6 max-w-4xl w-full">
           {dataApps.map((app, i) => (
-            <a key={i} href={app.link} target="_blank" rel="noopener noreferrer"
+            <KioskLink key={i} href={app.link}
               className="flex flex-col items-center gap-3 p-5 rounded-xl transition-all hover:scale-[1.03] hover:shadow-lg shadow-sm"
               style={{ background: "#ffffff", border: "1px solid rgba(4,73,95,0.15)" }}>
               <img src={app.logo} alt={app.name} className="w-16 h-16 object-contain" />
@@ -93,7 +94,7 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
                 <p className="text-sm font-bold leading-tight" style={{ color: "var(--pkp-teal)" }}>{app.name}</p>
                 <p className="text-xs mt-1 opacity-60 leading-snug">{app.desc}</p>
               </div>
-            </a>
+            </KioskLink>
           ))}
         </div>
       </div>
@@ -137,24 +138,19 @@ export default function LayananUmumPage({ onBack }: Props) {
 
         {/* ── LEFT: LAYANAN ONLINE ── */}
         <div className="w-[27%] flex flex-col items-center justify-center px-6 py-4 gap-6">
-
-          {/* Section pill */}
           <div className="w-full text-center py-3 px-4 rounded-full font-bold tracking-widest text-sm"
             style={{ background: "var(--pkp-gold)", color: "var(--pkp-teal)" }}>
             LAYANAN ONLINE
           </div>
 
-          {/* Service rows */}
           <div className="flex flex-col gap-5 w-full">
             {onlineServices.map((svc, i) => {
               const inner = (
-                <div key={i} className="flex items-center gap-3 w-full group cursor-pointer">
-                  {/* Circle icon */}
+                <div className="flex items-center gap-3 w-full group cursor-pointer">
                   <div className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center overflow-hidden shadow-md"
                     style={{ background: svc.goldCircle ? "var(--pkp-gold)" : "var(--pkp-teal)" }}>
                     <img src={svc.logo} alt={svc.name} className="w-9 h-9 object-contain" />
                   </div>
-                  {/* Label pill */}
                   <div className="flex-1 py-2.5 px-4 rounded-full font-bold text-sm text-center text-white transition-all group-hover:opacity-80 shadow-sm"
                     style={{ background: "var(--pkp-teal)" }}>
                     {svc.name}
@@ -164,9 +160,9 @@ export default function LayananUmumPage({ onBack }: Props) {
 
               if (svc.link) {
                 return (
-                  <a key={i} href={svc.link} target="_blank" rel="noopener noreferrer" className="w-full">
+                  <KioskLink key={i} href={svc.link} className="w-full">
                     {inner}
-                  </a>
+                  </KioskLink>
                 )
               }
               return (
@@ -180,8 +176,6 @@ export default function LayananUmumPage({ onBack }: Props) {
 
         {/* ── CENTER: HERO ── */}
         <div className="flex-1 relative flex flex-col items-center justify-end overflow-hidden">
-
-          {/* Sugeng Rawuh */}
           <p className="absolute top-2 left-1/2 -translate-x-1/2 whitespace-nowrap z-10 pointer-events-none"
             style={{
               fontFamily: "'Bebas Neue', 'Impact', sans-serif",
@@ -191,16 +185,12 @@ export default function LayananUmumPage({ onBack }: Props) {
             }}>
             ꦱꦸꦒꦼꦁ ꦫꦮꦸꦃ [SUGENG RAWUH]
           </p>
-
-          {/* GRIYA wordmark */}
           <img
             src="/design/GRIYA_JAWA3.png"
             alt="Griya Jawa3"
             className="absolute z-10 pointer-events-none"
             style={{ top: "8%", left: "50%", transform: "translateX(-50%)", width: "clamp(160px, 26%, 280px)" }}
           />
-
-          {/* Person image — centered, proportional */}
           <img
             src="/design/picture10.png"
             alt="Staff BP3KP"
@@ -211,28 +201,23 @@ export default function LayananUmumPage({ onBack }: Props) {
 
         {/* ── RIGHT: LAYANAN OFFLINE ── */}
         <div className="w-[27%] flex flex-col items-center justify-center px-6 py-4 gap-6">
-
-          {/* Section pill */}
           <div className="w-full text-center py-3 px-4 rounded-full font-bold tracking-widest text-sm text-white"
             style={{ background: "var(--pkp-teal)" }}>
             LAYANAN OFFLINE
           </div>
 
-          {/* Service items */}
           <div className="flex flex-col gap-5 w-full">
             {offlineServices.map((svc, i) => (
-              <a key={i} href={svc.link} target="_blank" rel="noopener noreferrer"
+              <KioskLink key={i} href={svc.link}
                 className="flex flex-col gap-2 w-full group transition-all hover:scale-[1.02]">
-                {/* Building photo */}
                 <div className="w-full rounded-xl overflow-hidden shadow-md" style={{ height: "110px" }}>
                   <img src={svc.img} alt={svc.name} className="w-full h-full object-cover" />
                 </div>
-                {/* Label pill */}
                 <div className="w-full text-center py-2.5 px-4 rounded-full font-bold text-sm text-white shadow-sm transition-all group-hover:opacity-80"
                   style={{ background: "var(--pkp-teal)" }}>
                   {svc.name}
                 </div>
-              </a>
+              </KioskLink>
             ))}
           </div>
         </div>

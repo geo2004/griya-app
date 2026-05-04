@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useRef, useState, useCallback } from "react"
 import { ArrowLeft, ChevronUp, ChevronDown } from "lucide-react"
+import KioskLink from "@/components/KioskLink"
 
 interface Props { onBack: () => void }
 
@@ -185,15 +186,13 @@ export default function ProfilPage({ onBack }: Props) {
                 dan utilitas umum (PSU), serta koordinasi penyediaan lahan dan pengembangan hunian di
                 wilayah Provinsi Jawa Tengah dan Daerah Istimewa Yogyakarta.
               </p>
-              <a
+              <KioskLink
                 href="https://pkp.go.id/balai/p2p-jawa-iii"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="w-fit px-8 py-3 rounded-full font-bold tracking-widest text-xs text-white transition-opacity hover:opacity-85 shadow-md"
                 style={{ background: "var(--pkp-teal)", letterSpacing: "0.15em" }}
               >
                 WEBSITE BP3KP JAWA III
-              </a>
+              </KioskLink>
             </div>
 
             {/* Right panel: map */}

@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react"
+import KioskLink from "@/components/KioskLink"
 
 interface Props { onBack: () => void }
 
@@ -85,11 +86,9 @@ export default function LayananPengaduanPage({ onBack }: Props) {
           {/* Service cards */}
           <div className="grid grid-cols-2 gap-4">
             {services.map((svc, i) => (
-              <a
+              <KioskLink
                 key={i}
                 href={svc.link}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="flex flex-col items-center text-center gap-3 p-5 rounded-xl transition-all hover:scale-[1.03] hover:shadow-lg shadow-sm"
                 style={{ background: "rgba(127,127,127,0.7)", border: "1px solid rgba(127,127,127,0.3)" }}
               >
@@ -98,7 +97,7 @@ export default function LayananPengaduanPage({ onBack }: Props) {
                   <p className="text-sm font-bold leading-tight text-white">{svc.name}</p>
                   <p className="text-xs mt-1 leading-snug text-white/75">{svc.desc}</p>
                 </div>
-              </a>
+              </KioskLink>
             ))}
           </div>
         </div>

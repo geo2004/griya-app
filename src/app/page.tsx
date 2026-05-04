@@ -4,6 +4,7 @@ import ProfilPage from "@/components/ProfilPage"
 import LayananUmumPage from "@/components/LayananUmumPage"
 import LayananPengaduanPage from "@/components/LayananPengaduanPage"
 import LayananInternalPage from "@/components/LayananInternalPage"
+import KioskLink from "@/components/KioskLink"
 
 type Page = "home" | "profil" | "layanan-umum" | "layanan-pengaduan" | "layanan-internal"
 
@@ -16,10 +17,10 @@ const menuItems: { label: string; page?: Page; href?: string; gold?: boolean; ou
 ]
 
 const socialLinks = [
-  { icon: "/design/instagram.png",  href: "https://www.instagram.com/bp3kp_jawa3",      label: "Instagram", isImg: true  },
-  { icon: "/design/youtube.svg",    href: "https://www.youtube.com/@KlinikPKPJawa3",     label: "YouTube",   isImg: false },
-  { icon: "/design/whatsapp.svg",   href: "https://wa.me/6282137191145",                 label: "WhatsApp",  isImg: false },
-  { icon: "/design/email.svg",      href: "mailto:bp3kp.jawa3@pkp.go.id",               label: "Email",     isImg: false },
+  { icon: "/design/instagram.png",  href: "https://www.instagram.com/bp3kp_jawa3",      label: "Instagram" },
+  { icon: "/design/youtube.svg",    href: "https://www.youtube.com/@KlinikPKPJawa3",     label: "YouTube"   },
+  { icon: "/design/whatsapp.svg",   href: "https://wa.me/6282137191145",                 label: "WhatsApp"  },
+  { icon: "/design/email.svg",      href: "mailto:bp3kp.jawa3@pkp.go.id",               label: "Email"     },
 ]
 
 export default function Home() {
@@ -37,11 +38,9 @@ export default function Home() {
     >
       {/* ── TOP BAR ── */}
       <header className="flex-shrink-0 flex items-start justify-between px-8 pt-5 pb-0 z-10">
-        {/* Top-left tagline */}
         <p className="text-xs leading-relaxed font-medium" style={{ color: "var(--pkp-teal)", opacity: 0.8 }}>
           Gotong Royong Membangun Rumah Untuk Rakyat
         </p>
-        {/* Top-right: KEMENPKP logo */}
         <img src="/design/image6.png" alt="Kemen PKP" className="h-20 w-auto object-contain" />
       </header>
 
@@ -50,24 +49,18 @@ export default function Home() {
 
         {/* ── LEFT: wordmark + staff ── */}
         <div className="relative w-1/2 flex flex-col justify-end overflow-hidden">
-
-          {/* Building background — Joglo sketch */}
           <img
             src="/design/image3.png"
             alt="Gedung BP3KP"
             className="absolute bottom-0 right-0 object-contain object-bottom pointer-events-none"
             style={{ zIndex: 1, width: "80%", opacity: 0.18 }}
           />
-
-          {/* Staff photo — transparent background */}
           <img
             src="/design/image5_processed.png"
             alt="Staff BP3KP Jawa III"
             className="relative w-4/5 object-contain object-bottom"
             style={{ zIndex: 2, maxHeight: "84vh" }}
           />
-
-          {/* GRIYA_JAWA3 wordmark */}
           <img
             src="/design/GRIYA_JAWA3.png"
             alt="griya Jawa3"
@@ -79,7 +72,6 @@ export default function Home() {
         {/* ── RIGHT: greeting + buttons + social ── */}
         <div className="w-1/2 flex flex-col justify-center px-12 gap-6">
 
-          {/* Javanese greeting — Bebas Neue, grey, positioned higher */}
           <div style={{ marginTop: "-2rem" }}>
             <p
               style={{
@@ -118,9 +110,9 @@ export default function Home() {
               }
               if (href) {
                 return (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+                  <KioskLink key={label} href={href} className={cls} style={style}>
                     {label}
-                  </a>
+                  </KioskLink>
                 )
               }
               return (
@@ -133,22 +125,15 @@ export default function Home() {
 
           {/* Social media icons */}
           <div className="flex items-center gap-5">
-            {socialLinks.map(({ icon, href, label, isImg }) => (
-              <a
+            {socialLinks.map(({ icon, href, label }) => (
+              <KioskLink
                 key={label}
                 href={href}
-                target={href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
                 aria-label={label}
                 className="transition-all hover:scale-110 hover:opacity-70"
               >
-                <img
-                  src={icon}
-                  alt={label}
-                  className="h-6 w-6 object-contain"
-                  style={{ filter: isImg ? "none" : "none" }}
-                />
-              </a>
+                <img src={icon} alt={label} className="h-6 w-6 object-contain" />
+              </KioskLink>
             ))}
           </div>
         </div>
