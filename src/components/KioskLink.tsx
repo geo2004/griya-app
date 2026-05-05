@@ -2,14 +2,35 @@
 /**
  * KioskLink — drop-in replacement for <a target="_blank">.
  *
- * • Normal browser session  → behaves exactly like a regular link (new tab).
- * • Fullscreen / kiosk mode → intercepts click, opens URL inside the in-app
- *   iframe overlay so the user can always return via "Kembali ke GRIYA".
+ * Kiosk mode is detected SYNCHRONOUSLY at click time by checking:
+ *   1. ?kiosk=1 URL parameter  (dedicated kiosk machine — most reliable)
+ *   2. document.fullscreenElement  (Fullscreen API / programmatic)
+ *   3. window.innerHeight >= screen.height * 0.95  (F11 / --kiosk Chrome)
  *
- * wa.me / mailto / tel links are always opened natively regardless of mode.
+ * When in kiosk mode: fires a 'griya:open' DOM event → ExternalProvider
+ * renders the in-app iframe overlay with a "Kembali ke GRIYA" button.
+ *
+ * When NOT in kiosk mode: behaves exactly like a normal <a target="_blank">.
+ *
+ * wa.me / mailto / tel links are always opened natively (no iframe).
  */
-import { useExternal } from "@/lib/ExternalContext"
 import { ReactNode, MouseEvent, CSSProperties } from "react"
+
+const NATIVE_PREFIXES = ["https://wa.me", "mailto:", "tel:"]
+
+const isNativeUrl = (url: string) =>
+  NATIVE_PREFIXES.some((prefix) => url.startsWith(prefix))
+
+const isKioskMode = () => {
+  if (typeof window === "undefined") return false
+  // 1. Explicit URL parameter — set browser homepage to /?kiosk=1
+  if (window.location.search.includes("kiosk=1")) return true
+  // 2. Fullscreen API (programmatic fullscreen)
+  if (document.fullscreenElement) return true
+  // 3. F11 / Chrome --kiosk heuristic (95% of screen height)
+  if (window.innerHeight >= screen.height * 0.95) return true
+  return false
+}
 
 interface Props {
   href: string
@@ -26,14 +47,16 @@ export default function KioskLink({
   style,
   "aria-label": ariaLabel,
 }: Props) {
-  const { isFullscreen, openExternal } = useExternal()
-
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (isFullscreen) {
+    if (isNativeUrl(href)) return // always let browser handle natively
+
+    if (isKioskMode()) {
       e.preventDefault()
-      openExternal(href)
+      window.dispatchEvent(
+        new CustomEvent("griya:open", { detail: href })
+      )
     }
-    // Not fullscreen → let normal <a target="_blank"> behavior run
+    // else: normal <a target="_blank"> behavior — new tab
   }
 
   return (
