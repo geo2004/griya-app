@@ -23,6 +23,10 @@ const isNativeUrl = (url: string) =>
 
 const isKioskMode = () => {
   if (typeof window === "undefined") return false
+  // Running inside Electron — navigation is handled natively via BrowserWindow,
+  // not the iframe overlay. Let <a target="_blank"> fire normally so Electron's
+  // setWindowOpenHandler can intercept it.
+  if (navigator.userAgent.toLowerCase().includes("electron")) return false
   // 1. Explicit URL parameter — set browser homepage to /?kiosk=1
   if (window.location.search.includes("kiosk=1")) return true
   // 2. Fullscreen API (programmatic fullscreen)
