@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { ExternalProvider } from "@/lib/ExternalContext"
 
 export const metadata: Metadata = {
   title: "GRIYA BP3KP Jawa III",
@@ -20,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-full flex flex-col antialiased">
-        <ExternalProvider>{children}</ExternalProvider>
+        {children}
       </body>
     </html>
   )

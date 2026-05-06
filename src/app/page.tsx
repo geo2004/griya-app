@@ -4,7 +4,6 @@ import ProfilPage from "@/components/ProfilPage"
 import LayananUmumPage from "@/components/LayananUmumPage"
 import LayananPengaduanPage from "@/components/LayananPengaduanPage"
 import LayananInternalPage from "@/components/LayananInternalPage"
-import KioskLink from "@/components/KioskLink"
 
 type Page = "home" | "profil" | "layanan-umum" | "layanan-pengaduan" | "layanan-internal"
 
@@ -125,9 +124,9 @@ export default function Home() {
               }
               if (href) {
                 return (
-                  <KioskLink key={label} href={href} className={cls} style={style}>
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
                     {label}
-                  </KioskLink>
+                  </a>
                 )
               }
               return (
@@ -141,14 +140,16 @@ export default function Home() {
           {/* Social media icons */}
           <div className="flex items-center gap-4 md:gap-5 relative z-10">
             {socialLinks.map(({ icon, href, label }) => (
-              <KioskLink
+              <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="transition-all hover:scale-110 hover:opacity-70"
               >
                 <img src={icon} alt={label} className="h-6 w-6 object-contain" />
-              </KioskLink>
+              </a>
             ))}
           </div>
 

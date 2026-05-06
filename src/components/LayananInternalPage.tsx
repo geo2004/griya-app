@@ -1,5 +1,4 @@
 import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser, BarChart2 } from "lucide-react"
-import KioskLink from "@/components/KioskLink"
 
 interface Props { onBack: () => void }
 
@@ -88,9 +87,11 @@ export default function LayananInternalPage({ onBack }: Props) {
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-5 md:gap-x-10 md:gap-y-6"
           style={{ alignItems: "flex-start" }}>
           {services.map((svc, i) => (
-            <KioskLink
+            <a
               key={i}
               href={svc.link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col items-center gap-2 group"
               style={{ width: "76px" }}
             >
@@ -111,7 +112,7 @@ export default function LayananInternalPage({ onBack }: Props) {
               <p className="text-xs font-bold text-center leading-tight w-full" style={{ color: "var(--pkp-teal)" }}>
                 {svc.name}
               </p>
-            </KioskLink>
+            </a>
           ))}
         </div>
 

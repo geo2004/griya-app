@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react"
 import { ArrowLeft } from "lucide-react"
-import KioskLink from "@/components/KioskLink"
 
 interface Props { onBack: () => void }
 
@@ -87,7 +86,7 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
         {/* 2-col on mobile, 4-col on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl w-full">
           {dataApps.map((app, i) => (
-            <KioskLink key={i} href={app.link}
+            <a key={i} href={app.link} target="_blank" rel="noopener noreferrer"
               className="flex flex-col items-center gap-3 p-4 md:p-5 rounded-xl transition-all hover:scale-[1.03] hover:shadow-lg shadow-sm"
               style={{ background: "#ffffff", border: "1px solid rgba(4,73,95,0.15)" }}>
               <img src={app.logo} alt={app.name} className="w-12 h-12 md:w-16 md:h-16 object-contain" />
@@ -95,7 +94,7 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
                 <p className="text-sm font-bold leading-tight" style={{ color: "var(--pkp-teal)" }}>{app.name}</p>
                 <p className="text-xs mt-1 opacity-60 leading-snug">{app.desc}</p>
               </div>
-            </KioskLink>
+            </a>
           ))}
         </div>
       </div>
@@ -161,9 +160,9 @@ export default function LayananUmumPage({ onBack }: Props) {
 
               if (svc.link) {
                 return (
-                  <KioskLink key={i} href={svc.link} className="w-full">
+                  <a key={i} href={svc.link} target="_blank" rel="noopener noreferrer" className="w-full">
                     {inner}
-                  </KioskLink>
+                  </a>
                 )
               }
               return (
@@ -209,7 +208,7 @@ export default function LayananUmumPage({ onBack }: Props) {
 
           <div className="flex flex-col gap-3 md:gap-5 w-full">
             {offlineServices.map((svc, i) => (
-              <KioskLink key={i} href={svc.link}
+              <a key={i} href={svc.link} target="_blank" rel="noopener noreferrer"
                 className="flex flex-col gap-2 w-full group transition-all hover:scale-[1.02]">
                 <div className="w-full rounded-xl overflow-hidden shadow-md" style={{ height: "90px" }}>
                   <img src={svc.img} alt={svc.name} className="w-full h-full object-cover" />
@@ -218,7 +217,7 @@ export default function LayananUmumPage({ onBack }: Props) {
                   style={{ background: "var(--pkp-teal)" }}>
                   {svc.name}
                 </div>
-              </KioskLink>
+              </a>
             ))}
           </div>
         </div>
