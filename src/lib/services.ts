@@ -157,6 +157,13 @@ export const serviceGroups: ServiceGroup[] = [
         link: "https://my.pkp.go.id",
         internal: true,
       },
+      {
+        name: "JDIH BP3KP Jawa III",
+        description: "Jaringan Dokumentasi dan Informasi Hukum BP3KP Jawa III",
+        icon: "scale",
+        link: "https://jdih-bp3kpjawa3.vercel.app/",
+        internal: true,
+      },
     ],
   },
 ]

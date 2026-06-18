@@ -1,4 +1,4 @@
-import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser, BarChart2 } from "lucide-react"
+import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser, BarChart2, Scale } from "lucide-react"
 
 interface Props { onBack: () => void }
 
@@ -32,6 +32,11 @@ const services = [
     icon: { desktop: <BarChart2 size={28} strokeWidth={1.5} />, mobile: <BarChart2 size={22} strokeWidth={1.5} /> },
     name: "Sistem Pelaporan Kinerja",
     link: "https://lapkin-app.vercel.app/",
+  },
+  {
+    icon: { desktop: <Scale size={28} strokeWidth={1.5} />, mobile: <Scale size={22} strokeWidth={1.5} /> },
+    name: "JDIH BP3KP Jawa III",
+    link: "https://jdih-bp3kpjawa3.vercel.app/",
   },
 ]
 
