@@ -44,7 +44,7 @@ export default function Home() {
         <img
           src="/design/GRIYA_JAWA3.png"
           alt="Griya Jawa3"
-          className="block md:hidden h-8 w-auto object-contain"
+          className="block md:hidden h-10 w-auto object-contain"
         />
         <img src="/design/image6.png" alt="Kemen PKP" className="h-12 md:h-20 w-auto object-contain" />
       </header>
@@ -70,7 +70,7 @@ export default function Home() {
             src="/design/GRIYA_JAWA3.png"
             alt="griya Jawa3"
             className="absolute z-10 pointer-events-none"
-            style={{ top: "8%", left: "clamp(56px, 10%, 110px)", width: "clamp(240px, 42%, 400px)" }}
+            style={{ top: "8%", left: "clamp(56px, 10%, 110px)", width: "clamp(288px, 50.4%, 480px)" }}
           />
         </div>
 
