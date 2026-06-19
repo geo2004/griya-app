@@ -81,7 +81,7 @@ export default function LayananPengaduanPage({ onBack }: Props) {
               LAYANAN PENGADUAN
             </p>
             <p className="text-xs text-white/60 mt-0.5">
-              Gerbang Informasi Rujukan dan Layanan BP3KP Jawa III
+              Gerbang Rujukan Informasi dan Layanan BP3KP Jawa III
             </p>
           </div>
 
