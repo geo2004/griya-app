@@ -107,7 +107,7 @@ export default function Home() {
                 marginTop: "0.75rem",
               }}
             >
-              GERBANG INFORMASI RUJUKAN DAN LAYANAN BP3KP JAWA III
+              GERBANG RUJUKAN INFORMASI DAN LAYANAN BP3KP JAWA III
             </p>
           </div>
 
