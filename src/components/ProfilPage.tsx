@@ -173,7 +173,7 @@ export default function ProfilPage({ onBack }: Props) {
                 />
               </div>
               <p className="text-xs font-bold tracking-widest" style={{ color: "var(--pkp-teal)" }}>
-                GERBANG INFORMASI RUJUKAN DAN LAYANAN BP3KP JAWA III
+                GERBANG RUJUKAN INFORMASI DAN LAYANAN BP3KP JAWA III
               </p>
               <div style={{ marginTop: "-0.25rem" }}>
                 <p className="text-sm font-bold tracking-widest" style={{ color: "var(--pkp-gold)" }}>PROFIL</p>
