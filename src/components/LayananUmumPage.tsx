@@ -189,7 +189,7 @@ export default function LayananUmumPage({ onBack }: Props) {
             src="/design/GRIYA_JAWA3.png"
             alt="Griya Jawa3"
             className="absolute z-10 pointer-events-none"
-            style={{ top: "8%", left: "50%", transform: "translateX(-50%)", width: "clamp(160px, 26%, 280px)" }}
+            style={{ top: "8%", left: "50%", transform: "translateX(-50%)", width: "clamp(192px, 31.2%, 336px)" }}
           />
           <img
             src="/design/picture10.png"

@@ -169,7 +169,7 @@ export default function ProfilPage({ onBack }: Props) {
                   src="/design/GRIYA_JAWA3.png"
                   alt="Griya Jawa3"
                   className="mt-1 pointer-events-none"
-                  style={{ width: "clamp(120px, 45%, 260px)" }}
+                  style={{ width: "clamp(144px, 54%, 312px)" }}
                 />
               </div>
               <p className="text-xs font-bold tracking-widest" style={{ color: "var(--pkp-teal)" }}>
