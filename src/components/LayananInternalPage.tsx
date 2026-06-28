@@ -1,44 +1,7 @@
-import { ArrowLeft, UserCog, Package, Navigation, Mail, CircleUser, BarChart2, Scale } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+import { internalServices as services } from "@/lib/services"
 
 interface Props { onBack: () => void }
-
-const services = [
-  {
-    icon: { desktop: <UserCog size={28} strokeWidth={1.5} />, mobile: <UserCog size={22} strokeWidth={1.5} /> },
-    name: "Layanan Kepegawaian",
-    link: "https://kepegawaian-bp3kpj3.vercel.app/",
-  },
-  {
-    icon: { desktop: <Package size={28} strokeWidth={1.5} />, mobile: <Package size={22} strokeWidth={1.5} /> },
-    name: "Inventarisasi BMN",
-    link: "https://bmn-app.vercel.app/",
-  },
-  {
-    icon: { desktop: <Navigation size={28} strokeWidth={1.5} />, mobile: <Navigation size={22} strokeWidth={1.5} /> },
-    name: "Go PKP",
-    link: "https://go.pkp.go.id/",
-  },
-  {
-    icon: { desktop: <Mail size={28} strokeWidth={1.5} />, mobile: <Mail size={22} strokeWidth={1.5} /> },
-    name: "E-office PKP",
-    link: "https://eoffice.pkp.go.id",
-  },
-  {
-    icon: { desktop: <CircleUser size={28} strokeWidth={1.5} />, mobile: <CircleUser size={22} strokeWidth={1.5} /> },
-    name: "MyPKP",
-    link: "https://my.pkp.go.id",
-  },
-  {
-    icon: { desktop: <BarChart2 size={28} strokeWidth={1.5} />, mobile: <BarChart2 size={22} strokeWidth={1.5} /> },
-    name: "Sistem Pelaporan Kinerja",
-    link: "https://lapkin-app.vercel.app/",
-  },
-  {
-    icon: { desktop: <Scale size={28} strokeWidth={1.5} />, mobile: <Scale size={22} strokeWidth={1.5} /> },
-    name: "JDIH BP3KP Jawa III",
-    link: "https://jdih-bp3kpjawa3.vercel.app/",
-  },
-]
 
 export default function LayananInternalPage({ onBack }: Props) {
   return (
@@ -91,7 +54,9 @@ export default function LayananInternalPage({ onBack }: Props) {
         {/* Service buttons */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-5 md:gap-x-10 md:gap-y-6"
           style={{ alignItems: "flex-start" }}>
-          {services.map((svc, i) => (
+          {services.map((svc, i) => {
+            const Icon = svc.icon
+            return (
             <a
               key={i}
               href={svc.link}
@@ -105,20 +70,21 @@ export default function LayananInternalPage({ onBack }: Props) {
                 className="w-[76px] h-[76px] md:hidden rounded-full flex items-center justify-center text-white transition-all group-hover:scale-105 group-hover:shadow-xl shadow-md flex-shrink-0"
                 style={{ background: "var(--pkp-teal)" }}
               >
-                {svc.icon.mobile}
+                <Icon size={22} strokeWidth={1.5} />
               </div>
               {/* Desktop circle */}
               <div
                 className="hidden md:flex w-24 h-24 rounded-full items-center justify-center text-white transition-all group-hover:scale-105 group-hover:shadow-xl shadow-md flex-shrink-0"
                 style={{ background: "var(--pkp-teal)" }}
               >
-                {svc.icon.desktop}
+                <Icon size={28} strokeWidth={1.5} />
               </div>
               <p className="text-xs font-bold text-center leading-tight w-full" style={{ color: "var(--pkp-teal)" }}>
                 {svc.name}
               </p>
             </a>
-          ))}
+            )
+          })}
         </div>
 
       </div>

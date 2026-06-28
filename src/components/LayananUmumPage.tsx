@@ -1,54 +1,14 @@
 "use client"
 import { useState } from "react"
 import { ArrowLeft } from "lucide-react"
+import {
+  onlineServices,
+  offlineServices,
+  dataApps,
+  type LayananUmumSubPage as SubPage,
+} from "@/lib/services"
 
 interface Props { onBack: () => void }
-
-type SubPage = null | "data-informasi"
-
-const onlineServices = [
-  {
-    logo: "/design/klinikpkp.png",
-    name: "Klinik PKP Jawa III",
-    link: "https://krsjawa3.com",
-    subPage: null,
-    goldCircle: true,
-  },
-  {
-    logo: "/design/logo_pkp.png",
-    name: "Data & Informasi",
-    link: null,
-    subPage: "data-informasi" as SubPage,
-    goldCircle: false,
-  },
-  {
-    logo: "/design/logo_pkp.png",
-    name: "Konsultasi Perumahan",
-    link: "https://wa.me/6282137191145",
-    subPage: null,
-    goldCircle: false,
-  },
-]
-
-const offlineServices = [
-  {
-    img: "/design/image30.png",
-    name: "Klinik PKP Jawa III",
-    link: "https://krsjawa3.com",
-  },
-  {
-    img: "/design/image29.png",
-    name: "MPP Yogyakarta",
-    link: "https://mpp.jogjakota.go.id/",
-  },
-]
-
-const dataApps = [
-  { name: "SIBARU",      desc: "Sistem Informasi Pengusulan Bantuan Perumahan",                   link: "https://sibaru.pkp.go.id",        logo: "/design/logo_pkp.png" },
-  { name: "SIRENG",      desc: "Sistem Informasi dan Registrasi Pengembang Perumahan",             link: "https://sireng.pkp.go.id",        logo: "/design/logo_pkp.png" },
-  { name: "SIKUMBANG",   desc: "Sistem Informasi Ketersediaan Rumah Umum dan Pengembang",          link: "https://sikumbang.tapera.go.id/", logo: "/design/logo_pkp.png" },
-  { name: "E-PPID PKP",  desc: "Layanan Informasi Publik Kementerian PKP",                        link: "https://e-ppid.pkp.go.id/",      logo: "/design/logo_pkp.png" },
-]
 
 /* ─── Data & Informasi Sub-page ─────────────────────────────────────── */
 function DataInformasiPage({ onBack }: { onBack: () => void }) {

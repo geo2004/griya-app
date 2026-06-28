@@ -1,33 +1,7 @@
 import { ArrowLeft } from "lucide-react"
+import { pengaduanServices as services } from "@/lib/services"
 
 interface Props { onBack: () => void }
-
-const services = [
-  {
-    img: "/design/image32.png",
-    name: "Awasi PKP",
-    desc: "Asistensi Pengawasan Integritas Kementerian PKP",
-    link: "https://awasi.pkp.go.id/",
-  },
-  {
-    img: "/design/image33.png",
-    name: "Benar PKP",
-    desc: "Pelaporan dan verifikasi informasi seputar PKP",
-    link: "https://wa.me/6281288888911",
-  },
-  {
-    img: "/design/lapor.png",
-    name: "SP4N LAPOR!",
-    desc: "Sistem Pengelolaan Pengaduan Pelayanan Publik Nasional",
-    link: "https://www.lapor.go.id/",
-  },
-  {
-    img: "/design/logo_pkp.png",
-    name: "Pengaduan BP3KP Jawa III",
-    desc: "Sampaikan pengaduan langsung via WhatsApp",
-    link: "https://wa.me/6282137191145",
-  },
-]
 
 export default function LayananPengaduanPage({ onBack }: Props) {
   return (

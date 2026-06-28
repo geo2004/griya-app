@@ -1,169 +1,138 @@
-export interface Service {
+import type { LucideIcon } from "lucide-react"
+import { UserCog, Package, Navigation, Mail, CircleUser, BarChart2, Scale } from "lucide-react"
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Single source of truth for every service rendered across the portal.
+ * Each page component imports its slice from here — do not re-declare these
+ * arrays inside the components.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Layanan Umum ─────────────────────────────────────────────────────── */
+
+export type LayananUmumSubPage = null | "data-informasi"
+
+export interface OnlineService {
+  logo: string
   name: string
-  description: string
-  icon: string
-  svgIcon?: string   // filename in /public, takes priority over lucide icon
-  link: string
-  internal?: boolean
-  subPage?: string   // triggers in-page sub-page instead of navigating
+  link: string | null          // external link; null when it opens a sub-page
+  subPage: LayananUmumSubPage   // in-page sub-page to open instead of navigating
+  goldCircle: boolean           // gold avatar circle instead of teal
 }
 
-export const layananDataServices: Service[] = [
+export const onlineServices: OnlineService[] = [
   {
-    name: "SIBARU",
-    description: "Sistem Informasi Bantuan Perumahan",
-    icon: "building-2",
-    link: "https://sibaru.pkp.go.id/",
+    logo: "/design/klinikpkp.png",
+    name: "Klinik PKP Jawa III",
+    link: "https://krsjawa3.com",
+    subPage: null,
+    goldCircle: true,
   },
   {
-    name: "SIRENG",
-    description: "Sistem Informasi Registrasi Pengembang",
-    icon: "user-check",
-    link: "https://sireng.pkp.go.id/",
+    logo: "/design/logo_pkp.png",
+    name: "Data & Informasi",
+    link: null,
+    subPage: "data-informasi",
+    goldCircle: false,
   },
   {
-    name: "SIKUMBANG",
-    description: "Sistem Informasi Rumah Subsidi dan Pengembang",
-    icon: "home",
-    link: "https://sikumbang.tapera.go.id/",
+    logo: "/design/logo_pkp.png",
+    name: "Konsultasi Perumahan",
+    link: "https://wa.me/6282137191145",
+    subPage: null,
+    goldCircle: false,
   },
   {
-    name: "E-PPID PKP",
-    description: "Permohonan Informasi Publik Kementerian PKP",
-    icon: "file-text",
-    link: "https://e-ppid.pkp.go.id/",
+    logo: "/design/logo_pkp.png",
+    name: "Peminjaman Pendopo BP3KP Jawa III",
+    link: "https://pendopobp3kpjawaiii.netlify.app/",
+    subPage: null,
+    goldCircle: false,
   },
 ]
 
-export interface ServiceGroup {
-  group: string
-  groupIcon: string
-  services: Service[]
+export interface OfflineService {
+  img: string
+  name: string
+  link: string
 }
 
-export const serviceGroups: ServiceGroup[] = [
+export const offlineServices: OfflineService[] = [
   {
-    group: "Layanan Umum",
-    groupIcon: "landmark",
-    services: [
-      {
-        name: "Layanan Data & Informasi",
-        description: "Akses data dan informasi terkait perumahan dan kawasan permukiman",
-        icon: "database",
-        link: "#",
-        subPage: "layanan-data",
-      },
-      {
-        name: "Konsultasi Perumahan",
-        description: "Konsultasi teknis perumahan dan permukiman bagi masyarakat",
-        icon: "house",
-        link: "#",
-      },
-    ],
+    img: "/design/image30.png",
+    name: "Klinik PKP Jawa III",
+    link: "https://krsjawa3.com",
   },
   {
-    group: "Pengaduan",
-    groupIcon: "megaphone",
-    services: [
-      {
-        name: "Awasi PKP",
-        description: "Pengawasan program perumahan dan kawasan permukiman",
-        icon: "eye",
-        svgIcon: "awasi-pkp.svg",
-        link: "https://awasi.pkp.go.id/",
-      },
-      {
-        name: "Benar PKP",
-        description: "Pelaporan dan verifikasi informasi seputar PKP",
-        icon: "shield-check",
-        svgIcon: "benar-pkp.svg",
-        link: "https://wa.me/6281288888911",
-      },
-      {
-        name: "SP4N LAPOR!",
-        description: "Sistem Pengelolaan Pengaduan Pelayanan Publik Nasional",
-        icon: "clipboard-list",
-        svgIcon: "sp4n lapor.svg",
-        link: "https://www.lapor.go.id/",
-      },
-      {
-        name: "Pengaduan BP3KP Jawa III",
-        description: "Sampaikan pengaduan langsung kepada BP3KP Jawa III",
-        icon: "message-square",
-        link: "https://wa.me/6282137191145",
-      },
-    ],
+    img: "/design/image29.png",
+    name: "MPP Yogyakarta",
+    link: "https://mpp.jogjakota.go.id/",
+  },
+]
+
+export interface DataApp {
+  name: string
+  desc: string
+  link: string
+  logo: string
+}
+
+export const dataApps: DataApp[] = [
+  { name: "SIBARU",     desc: "Sistem Informasi Pengusulan Bantuan Perumahan",          link: "https://sibaru.pkp.go.id",        logo: "/design/logo_pkp.png" },
+  { name: "SIRENG",     desc: "Sistem Informasi dan Registrasi Pengembang Perumahan",   link: "https://sireng.pkp.go.id",        logo: "/design/logo_pkp.png" },
+  { name: "SIKUMBANG",  desc: "Sistem Informasi Ketersediaan Rumah Umum dan Pengembang", link: "https://sikumbang.tapera.go.id/", logo: "/design/logo_pkp.png" },
+  { name: "E-PPID PKP", desc: "Layanan Informasi Publik Kementerian PKP",               link: "https://e-ppid.pkp.go.id/",       logo: "/design/logo_pkp.png" },
+]
+
+/* ── Layanan Pengaduan ────────────────────────────────────────────────── */
+
+export interface PengaduanService {
+  img: string
+  name: string
+  desc: string
+  link: string
+}
+
+export const pengaduanServices: PengaduanService[] = [
+  {
+    img: "/design/image32.png",
+    name: "Awasi PKP",
+    desc: "Asistensi Pengawasan Integritas Kementerian PKP",
+    link: "https://awasi.pkp.go.id/",
   },
   {
-    group: "Profil BP3KP Jawa III",
-    groupIcon: "building-2",
-    services: [
-      {
-        name: "Website BP3KP Jawa III",
-        description: "Situs resmi Balai Perumahan, Permukiman dan Penataan Kawasan Permukiman Jawa III",
-        icon: "globe",
-        link: "https://pkp.go.id/balai/p2p-jawa-iii",
-      },
-      {
-        name: "Klinik PKP Jawa III",
-        description: "Pusat konsultasi dan asistensi teknis PKP wilayah Jawa III",
-        icon: "stethoscope",
-        link: "https://krsjawa3.com",
-      },
-      {
-        name: "Instagram BP3KP Jawa III",
-        description: "Ikuti kami di Instagram untuk informasi dan berita terkini",
-        icon: "camera",
-        link: "https://www.instagram.com/bp3kp_jawa3",
-      },
-    ],
+    img: "/design/image33.png",
+    name: "Benar PKP",
+    desc: "Pelaporan dan verifikasi informasi seputar PKP",
+    link: "https://wa.me/6281288888911",
   },
   {
-    group: "Layanan Internal BP3KP Jawa III",
-    groupIcon: "lock",
-    services: [
-      {
-        name: "Layanan Kepegawaian",
-        description: "Sistem informasi kepegawaian internal BP3KP Jawa III",
-        icon: "user-cog",
-        link: "https://kepegawaian-bp3kpj3.vercel.app/",
-        internal: true,
-      },
-      {
-        name: "Inventarisasi BMN",
-        description: "Sistem inventarisasi Barang Milik Negara BP3KP Jawa III",
-        icon: "package",
-        link: "https://bmn-app.vercel.app/",
-        internal: true,
-      },
-      {
-        name: "Go PKP",
-        description: "Portal layanan terpadu Kementerian PKP",
-        icon: "navigation",
-        link: "https://go.pkp.go.id/",
-        internal: true,
-      },
-      {
-        name: "Eoffice PKP",
-        description: "Sistem surat elektronik Kementerian PKP",
-        icon: "mail",
-        link: "https://eoffice.pkp.go.id",
-        internal: true,
-      },
-      {
-        name: "MyPKP",
-        description: "Portal layanan kepegawaian personal PKP",
-        icon: "circle-user",
-        link: "https://my.pkp.go.id",
-        internal: true,
-      },
-      {
-        name: "JDIH BP3KP Jawa III",
-        description: "Jaringan Dokumentasi dan Informasi Hukum BP3KP Jawa III",
-        icon: "scale",
-        link: "https://jdih-bp3kpjawa3.vercel.app/",
-        internal: true,
-      },
-    ],
+    img: "/design/lapor.png",
+    name: "SP4N LAPOR!",
+    desc: "Sistem Pengelolaan Pengaduan Pelayanan Publik Nasional",
+    link: "https://www.lapor.go.id/",
   },
+  {
+    img: "/design/logo_pkp.png",
+    name: "Pengaduan BP3KP Jawa III",
+    desc: "Sampaikan pengaduan langsung via WhatsApp",
+    link: "https://wa.me/6282137191145",
+  },
+]
+
+/* ── Layanan Internal (khusus pegawai) ────────────────────────────────── */
+
+export interface InternalService {
+  icon: LucideIcon
+  name: string
+  link: string
+}
+
+export const internalServices: InternalService[] = [
+  { icon: UserCog,    name: "Layanan Kepegawaian",       link: "https://kepegawaian-bp3kpj3.vercel.app/" },
+  { icon: Package,    name: "Inventarisasi BMN",          link: "https://bmn-app.vercel.app/" },
+  { icon: Navigation, name: "Go PKP",                     link: "https://go.pkp.go.id/" },
+  { icon: Mail,       name: "E-office PKP",               link: "https://eoffice.pkp.go.id" },
+  { icon: CircleUser, name: "MyPKP",                      link: "https://my.pkp.go.id" },
+  { icon: BarChart2,  name: "Sistem Pelaporan Kinerja",   link: "https://lapkin-app.vercel.app/" },
+  { icon: Scale,      name: "JDIH BP3KP Jawa III",        link: "https://jdih-bp3kpjawa3.vercel.app/" },
 ]
