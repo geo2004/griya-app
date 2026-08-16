@@ -96,7 +96,10 @@ function MediaCarousel({ media, alt }: { media: MediaItem[]; alt: string }) {
       {item.type === "image" ? (
         <img src={item.src} alt={alt} className="w-full h-full object-cover" />
       ) : (
-        <video src={item.src} className="w-full h-full object-cover" controls muted loop playsInline preload="metadata" />
+        <video src={item.src} className="w-full h-full object-cover"
+          controls muted autoPlay playsInline preload="metadata"
+          loop={count <= 1}
+          onEnded={() => { if (count > 1) go(idx + 1) }} />
       )}
 
       {count > 1 && (

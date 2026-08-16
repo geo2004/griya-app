@@ -92,6 +92,13 @@ export const offlineCounters: OfflineCounter[] = [
           "Jumat: 08.00 – 15.30 WIB",
         ],
         mapsLink: "https://www.google.com/maps/search/?api=1&query=-7.782631957344028,110.39480415979104",
+        media: [
+          { type: "video", src: "/design/balai/balai_front.mp4" },
+          { type: "image", src: "/design/balai/foto1.jpg" },
+          { type: "image", src: "/design/balai/foto2.jpg" },
+          { type: "image", src: "/design/balai/foto3.jpg" },
+          { type: "image", src: "/design/balai/foto4.jpg" },
+        ],
       },
       {
         name: "Kantor Ungaran",
@@ -102,10 +109,10 @@ export const offlineCounters: OfflineCounter[] = [
         ],
         mapsLink: "https://www.google.com/maps/search/?api=1&query=-7.181291481441925,110.42609354370057",
         media: [
+          { type: "video", src: "/design/satker-jateng/front.mp4" },
           { type: "image", src: "/design/satker-jateng/foto-1.jpg" },
           { type: "image", src: "/design/satker-jateng/foto-2.jpg" },
           { type: "image", src: "/design/satker-jateng/foto-3.jpg" },
-          { type: "video", src: "/design/satker-jateng/front.mp4" },
         ],
       },
     ],
