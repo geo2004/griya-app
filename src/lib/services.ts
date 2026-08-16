@@ -57,30 +57,57 @@ export const onlineServices: OnlineService[] = [
  * NOTE: heroImg photos, operating hours, and some addresses are PLACEHOLDERS —
  * confirm/replace before this goes to the public.
  */
+export interface MediaItem {
+  type: "image" | "video"
+  src: string
+}
+
+export interface CounterLocation {
+  name: string        // office/venue name
+  address: string     // full address line
+  hours: string[]     // operating hours (TODO: confirm)
+  mapsLink: string    // "Petunjuk Arah" href
+  media?: MediaItem[] // photos/video shown in the office carousel (optional)
+}
+
 export interface OfflineCounter {
   subPage: CounterSubPage
-  cardImg: string      // thumbnail shown on the Layanan Offline card
-  heroImg: string      // large photo on the dedicated page (TODO: real photo)
-  name: string         // card label + page title
-  location: string     // venue name
-  address: string      // full address line
-  hours: string[]      // operating hours (TODO: confirm)
-  services: string[]   // services available at this counter
-  actionLabel: string  // CTA button label
-  actionLink: string   // CTA button href (maps / website)
+  cardImg: string             // thumbnail shown on the Layanan Offline card
+  name: string                // card label + page title
+  locations: CounterLocation[] // one or more offices/venues for this counter
+  services: string[]          // services available at this counter
 }
 
 export const offlineCounters: OfflineCounter[] = [
   {
     subPage: "counter-balai",
     cardImg: "/design/image30.png",
-    heroImg: "/design/image3.png", // TODO(placeholder): real photo of the Balai counter
     name: "Counter Layanan Balai",
-    location: "Kantor BP3KP Jawa III — Ungaran",
-    address: "Jalan PTPN Ngobo XVIII, Ungaran, Kabupaten Semarang, Jawa Tengah",
-    hours: [
-      "Senin – Kamis: 08.00 – 15.00 WIB",
-      "Jumat: 08.00 – 15.30 WIB",
+    locations: [
+      {
+        name: "Kantor Yogyakarta",
+        address: "Jalan Laksda Adisucipto No. 165, Yogyakarta",
+        hours: [
+          "Senin – Kamis: 08.00 – 15.00 WIB",
+          "Jumat: 08.00 – 15.30 WIB",
+        ],
+        mapsLink: "https://www.google.com/maps/search/?api=1&query=-7.782631957344028,110.39480415979104",
+      },
+      {
+        name: "Kantor Ungaran",
+        address: "Jalan PTPN Ngobo XVIII, Ungaran, Kabupaten Semarang, Jawa Tengah",
+        hours: [
+          "Senin – Kamis: 08.00 – 15.00 WIB",
+          "Jumat: 08.00 – 15.30 WIB",
+        ],
+        mapsLink: "https://www.google.com/maps/search/?api=1&query=-7.181291481441925,110.42609354370057",
+        media: [
+          { type: "image", src: "/design/satker-jateng/foto-1.jpg" },
+          { type: "image", src: "/design/satker-jateng/foto-2.jpg" },
+          { type: "image", src: "/design/satker-jateng/foto-3.jpg" },
+          { type: "video", src: "/design/satker-jateng/front.mp4" },
+        ],
+      },
     ],
     services: [
       "Konsultasi teknis perumahan & kawasan permukiman",
@@ -88,27 +115,26 @@ export const offlineCounters: OfflineCounter[] = [
       "Layanan pengaduan langsung masyarakat",
       "Pendampingan pengusulan bantuan perumahan",
     ],
-    actionLabel: "Petunjuk Arah",
-    actionLink: "https://www.google.com/maps/search/?api=1&query=-7.181291481441925,110.42609354370057",
   },
   {
     subPage: "counter-mpp",
     cardImg: "/design/image29.png",
-    heroImg: "/design/image3.png", // TODO(placeholder): real photo of the MPP counter
     name: "Counter MPP Yogyakarta",
-    location: "Mal Pelayanan Publik (MPP) Kota Yogyakarta",
-    address: "Mal Pelayanan Publik Kota Yogyakarta, Daerah Istimewa Yogyakarta", // TODO: alamat lengkap
-    hours: [
-      "Senin – Kamis: 08.00 – 15.00 WIB",
-      "Jumat: 08.00 – 14.30 WIB",
+    locations: [
+      {
+        name: "Mal Pelayanan Publik (MPP) Kota Yogyakarta",
+        address: "Jl. Ipda Tut Harsono, Muja Muju, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55165",
+        hours: [
+          "Senin – Jumat: 09.00 – 14.00 WIB",
+        ],
+        mapsLink: "https://www.google.com/maps/search/?api=1&query=-7.8005592,110.3915809",
+      },
     ],
     services: [
       "Konsultasi perumahan bagi masyarakat Yogyakarta",
       "Informasi bantuan & program perumahan",
       "Penerimaan berkas & pengaduan",
     ],
-    actionLabel: "Kunjungi Website MPP",
-    actionLink: "https://mpp.jogjakota.go.id/",
   },
 ]
 

@@ -1,11 +1,12 @@
 "use client"
-import { useState } from "react"
-import { ArrowLeft, MapPin, Clock, Check } from "lucide-react"
+import { useState, useEffect } from "react"
+import { ArrowLeft, MapPin, Clock, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import {
   onlineServices,
   offlineCounters,
   dataApps,
   type OfflineCounter,
+  type MediaItem,
   type LayananUmumSubPage as SubPage,
 } from "@/lib/services"
 
@@ -65,6 +66,68 @@ function DataInformasiPage({ onBack }: { onBack: () => void }) {
   )
 }
 
+/* ─── Media carousel (photos + video) for an office ──────────────────── */
+function MediaCarousel({ media, alt }: { media: MediaItem[]; alt: string }) {
+  const [idx, setIdx] = useState(0)
+  const count = media.length
+  const go = (n: number) => setIdx((n + count) % count)
+
+  /* Auto-advance photos; pause while a video slide is showing */
+  useEffect(() => {
+    if (count <= 1 || media[idx]?.type === "video") return
+    const t = setInterval(() => setIdx((i) => (i + 1) % count), 4500)
+    return () => clearInterval(t)
+  }, [idx, count, media])
+
+  if (count === 0) {
+    return (
+      <div className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden shadow-md flex items-center justify-center"
+        style={{ background: "rgba(4,73,95,0.08)" }}>
+        <span className="text-xs font-semibold" style={{ color: "var(--pkp-teal)", opacity: 0.55 }}>
+          Foto segera hadir
+        </span>
+      </div>
+    )
+  }
+
+  const item = media[idx]
+  return (
+    <div className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden shadow-md" style={{ background: "#000" }}>
+      {item.type === "image" ? (
+        <img src={item.src} alt={alt} className="w-full h-full object-cover" />
+      ) : (
+        <video src={item.src} className="w-full h-full object-cover" controls muted loop playsInline preload="metadata" />
+      )}
+
+      {count > 1 && (
+        <>
+          <button onClick={() => go(idx - 1)} aria-label="Media sebelumnya"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center shadow transition-opacity hover:opacity-100 opacity-85"
+            style={{ background: "rgba(255,255,255,0.9)", color: "var(--pkp-teal)" }}>
+            <ChevronLeft size={18} strokeWidth={2.5} />
+          </button>
+          <button onClick={() => go(idx + 1)} aria-label="Media berikutnya"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center shadow transition-opacity hover:opacity-100 opacity-85"
+            style={{ background: "rgba(255,255,255,0.9)", color: "var(--pkp-teal)" }}>
+            <ChevronRight size={18} strokeWidth={2.5} />
+          </button>
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+            {media.map((_, i) => (
+              <button key={i} onClick={() => go(i)} aria-label={`Media ${i + 1}`}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === idx ? "18px" : "7px",
+                  height: "7px",
+                  background: i === idx ? "#fff" : "rgba(255,255,255,0.55)",
+                }} />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 /* ─── Counter (Layanan Offline) Sub-page ─────────────────────────────── */
 function CounterPage({ counter, onBack }: { counter: OfflineCounter; onBack: () => void }) {
   return (
@@ -89,71 +152,65 @@ function CounterPage({ counter, onBack }: { counter: OfflineCounter; onBack: () 
         </button>
       </header>
 
-      {/* Body */}
-      <div className="flex-1 flex flex-col md:flex-row min-h-0 relative z-10 px-4 md:px-10 py-5 md:py-8 gap-5 md:gap-8">
+      {/* Body — scrolls within the page */}
+      <div className="flex-1 min-h-0 overflow-y-auto relative z-10 px-4 md:px-10 py-5 md:py-7 flex flex-col gap-4 md:gap-5">
 
-        {/* Hero photo (placeholder) */}
-        <div className="w-full md:w-5/12 flex-shrink-0">
-          <div className="relative w-full h-48 md:h-full rounded-2xl overflow-hidden shadow-md" style={{ background: "rgba(4,73,95,0.08)" }}>
-            <img src={counter.heroImg} alt={counter.name} className="w-full h-full object-cover" />
-            <span className="absolute top-2 left-2 text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ background: "var(--pkp-gold)", color: "var(--pkp-teal)" }}>
-              Foto placeholder
-            </span>
-          </div>
+        {/* Title */}
+        <div>
+          <p className="text-xs md:text-sm font-bold tracking-widest" style={{ color: "var(--pkp-gold-dark)" }}>
+            LAYANAN OFFLINE
+          </p>
+          <h2 className="font-black leading-tight" style={{ fontSize: "clamp(1.4rem, 4vw, 2.4rem)", color: "var(--pkp-teal)" }}>
+            {counter.name}
+          </h2>
         </div>
 
-        {/* Info */}
-        <div className="flex-1 flex flex-col gap-4 md:gap-5 overflow-y-auto">
-          <div>
-            <p className="text-xs md:text-sm font-bold tracking-widest" style={{ color: "var(--pkp-gold-dark)" }}>
-              LAYANAN OFFLINE
-            </p>
-            <h2 className="font-black leading-tight" style={{ fontSize: "clamp(1.4rem, 4vw, 2.4rem)", color: "var(--pkp-teal)" }}>
-              {counter.name}
-            </h2>
-          </div>
-
-          {/* Location + hours */}
-          <div className="flex flex-col gap-3">
-            <div className="flex items-start gap-2.5">
-              <MapPin size={18} className="flex-shrink-0 mt-0.5" style={{ color: "var(--pkp-teal)" }} />
-              <div>
-                <p className="text-sm font-semibold" style={{ color: "var(--pkp-teal)" }}>{counter.location}</p>
-                <p className="text-xs opacity-70 leading-snug">{counter.address}</p>
+        {/* Offices — one card per location, each with its own gallery */}
+        <div className="flex flex-col gap-4 md:gap-5">
+          {counter.locations.map((loc, i) => (
+            <div key={i} className="flex flex-col md:flex-row gap-4 rounded-2xl p-3 md:p-4"
+              style={{ background: "rgba(4,73,95,0.05)", border: "1px solid rgba(4,73,95,0.12)" }}>
+              <div className="w-full md:w-[42%] flex-shrink-0">
+                <MediaCarousel media={loc.media ?? []} alt={loc.name} />
+              </div>
+              <div className="flex-1 flex flex-col gap-2">
+                <p className="text-base font-bold" style={{ color: "var(--pkp-teal)" }}>{loc.name}</p>
+                <div className="flex items-start gap-2.5">
+                  <MapPin size={16} className="flex-shrink-0 mt-0.5" style={{ color: "var(--pkp-teal)" }} />
+                  <p className="text-xs opacity-75 leading-snug">{loc.address}</p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Clock size={16} className="flex-shrink-0 mt-0.5" style={{ color: "var(--pkp-teal)" }} />
+                  <div className="text-xs" style={{ color: "#333" }}>
+                    {loc.hours.map((h, j) => <p key={j} className="leading-relaxed">{h}</p>)}
+                  </div>
+                </div>
+                <a href={loc.mapsLink} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 w-fit mt-1 px-4 py-2 rounded-full font-bold tracking-wide text-xs text-white transition-opacity hover:opacity-85 shadow-sm"
+                  style={{ background: "var(--pkp-teal)", letterSpacing: "0.08em" }}>
+                  <MapPin size={13} /> Petunjuk Arah
+                </a>
               </div>
             </div>
-            <div className="flex items-start gap-2.5">
-              <Clock size={18} className="flex-shrink-0 mt-0.5" style={{ color: "var(--pkp-teal)" }} />
-              <div className="text-xs" style={{ color: "#333" }}>
-                {counter.hours.map((h, i) => <p key={i} className="leading-relaxed">{h}</p>)}
-              </div>
-            </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Services */}
-          <div>
-            <p className="text-xs font-bold tracking-wide mb-2" style={{ color: "var(--pkp-teal)" }}>
-              LAYANAN DI COUNTER INI
-            </p>
-            <ul className="flex flex-col gap-1.5">
-              {counter.services.map((s, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs" style={{ color: "#333" }}>
-                  <span className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
-                    style={{ background: "var(--pkp-gold)" }}>
-                    <Check size={11} strokeWidth={3} style={{ color: "var(--pkp-teal)" }} />
-                  </span>
-                  <span className="leading-snug">{s}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <a href={counter.actionLink} target="_blank" rel="noopener noreferrer"
-            className="w-fit px-6 md:px-8 py-2.5 md:py-3 rounded-full font-bold tracking-widest text-xs text-white transition-opacity hover:opacity-85 shadow-md"
-            style={{ background: "var(--pkp-teal)", letterSpacing: "0.1em" }}>
-            {counter.actionLabel}
-          </a>
+        {/* Services */}
+        <div>
+          <p className="text-xs font-bold tracking-wide mb-2" style={{ color: "var(--pkp-teal)" }}>
+            LAYANAN DI COUNTER INI
+          </p>
+          <ul className="flex flex-col gap-1.5">
+            {counter.services.map((s, i) => (
+              <li key={i} className="flex items-start gap-2 text-xs" style={{ color: "#333" }}>
+                <span className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
+                  style={{ background: "var(--pkp-gold)" }}>
+                  <Check size={11} strokeWidth={3} style={{ color: "var(--pkp-teal)" }} />
+                </span>
+                <span className="leading-snug">{s}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
