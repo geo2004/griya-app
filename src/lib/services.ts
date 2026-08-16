@@ -9,7 +9,8 @@ import { UserCog, Package, Navigation, Mail, CircleUser, BarChart2, Scale } from
 
 /* ── Layanan Umum ─────────────────────────────────────────────────────── */
 
-export type LayananUmumSubPage = null | "data-informasi"
+export type LayananUmumSubPage = null | "data-informasi" | "counter-balai" | "counter-mpp"
+export type CounterSubPage = Extract<LayananUmumSubPage, "counter-balai" | "counter-mpp">
 
 export interface OnlineService {
   logo: string
@@ -50,22 +51,64 @@ export const onlineServices: OnlineService[] = [
   },
 ]
 
-export interface OfflineService {
-  img: string
-  name: string
-  link: string
+/**
+ * Physical service counters (Layanan Offline). Each entry powers both the
+ * card in the Layanan Offline column AND its own dedicated in-page sub-page.
+ * NOTE: heroImg photos, operating hours, and some addresses are PLACEHOLDERS —
+ * confirm/replace before this goes to the public.
+ */
+export interface OfflineCounter {
+  subPage: CounterSubPage
+  cardImg: string      // thumbnail shown on the Layanan Offline card
+  heroImg: string      // large photo on the dedicated page (TODO: real photo)
+  name: string         // card label + page title
+  location: string     // venue name
+  address: string      // full address line
+  hours: string[]      // operating hours (TODO: confirm)
+  services: string[]   // services available at this counter
+  actionLabel: string  // CTA button label
+  actionLink: string   // CTA button href (maps / website)
 }
 
-export const offlineServices: OfflineService[] = [
+export const offlineCounters: OfflineCounter[] = [
   {
-    img: "/design/image30.png",
-    name: "Klinik PKP Jawa III",
-    link: "https://krsjawa3.com",
+    subPage: "counter-balai",
+    cardImg: "/design/image30.png",
+    heroImg: "/design/image3.png", // TODO(placeholder): real photo of the Balai counter
+    name: "Counter Layanan Balai",
+    location: "Kantor BP3KP Jawa III — Ungaran",
+    address: "Jalan PTPN Ngobo XVIII, Ungaran, Kabupaten Semarang, Jawa Tengah",
+    hours: [
+      "Senin – Kamis: 08.00 – 15.00 WIB",
+      "Jumat: 08.00 – 15.30 WIB",
+    ],
+    services: [
+      "Konsultasi teknis perumahan & kawasan permukiman",
+      "Informasi program BSPS, Rumah Susun, dan Rumah Khusus",
+      "Layanan pengaduan langsung masyarakat",
+      "Pendampingan pengusulan bantuan perumahan",
+    ],
+    actionLabel: "Petunjuk Arah",
+    actionLink: "https://www.google.com/maps/search/?api=1&query=-7.181291481441925,110.42609354370057",
   },
   {
-    img: "/design/image29.png",
-    name: "MPP Yogyakarta",
-    link: "https://mpp.jogjakota.go.id/",
+    subPage: "counter-mpp",
+    cardImg: "/design/image29.png",
+    heroImg: "/design/image3.png", // TODO(placeholder): real photo of the MPP counter
+    name: "Counter MPP Yogyakarta",
+    location: "Mal Pelayanan Publik (MPP) Kota Yogyakarta",
+    address: "Mal Pelayanan Publik Kota Yogyakarta, Daerah Istimewa Yogyakarta", // TODO: alamat lengkap
+    hours: [
+      "Senin – Kamis: 08.00 – 15.00 WIB",
+      "Jumat: 08.00 – 14.30 WIB",
+    ],
+    services: [
+      "Konsultasi perumahan bagi masyarakat Yogyakarta",
+      "Informasi bantuan & program perumahan",
+      "Penerimaan berkas & pengaduan",
+    ],
+    actionLabel: "Kunjungi Website MPP",
+    actionLink: "https://mpp.jogjakota.go.id/",
   },
 ]
 
