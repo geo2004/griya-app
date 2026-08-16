@@ -97,7 +97,7 @@ export const pengaduanServices: PengaduanService[] = [
     img: "/design/image32.png",
     name: "Awasi PKP",
     desc: "Asistensi Pengawasan Integritas Kementerian PKP",
-    link: "https://awasi.pkp.go.id/",
+    link: "https://wbs.pkp.go.id/",
   },
   {
     img: "/design/image33.png",
